@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import LandingPage from '@/pages/LandingPage';
+import LoginPage from '@/pages/LoginPage';
 import './App.css';
 
 // --- 主應用入口 (Main App) ---
 const App = () => {
-  // View State: landing
+  // View State: landing, login
   const [currentView, setCurrentView] = useState('landing');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = () => {
+  const handleLoginStart = () => {
+    setCurrentView('login');
+  };
+
+  const handleLoginSuccess = () => {
     setIsLoggedIn(true);
-    // Future: redirect to dashboard
+    setCurrentView('landing');
   };
 
   const handleLogout = () => {
@@ -26,21 +31,24 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 flex flex-col">
-      <Header
-        isLoggedIn={isLoggedIn}
-        onLogin={handleLogin}
-        onRegister={handleStart}
-        onLogout={handleLogout}
-        currentView={currentView}
-        onChangeView={setCurrentView}
-      />
+      {currentView !== 'login' && (
+        <Header
+          isLoggedIn={isLoggedIn}
+          onLogin={handleLoginStart}
+          onRegister={handleStart}
+          onLogout={handleLogout}
+          currentView={currentView}
+          onChangeView={setCurrentView}
+        />
+      )}
 
       {/* --- Main Content Render --- */}
       <main className="flex-grow">
         {currentView === 'landing' ? <LandingPage onStart={handleStart} /> : null}
+        {currentView === 'login' ? <LoginPage onLoginSuccess={handleLoginSuccess} onRegisterClick={handleStart} /> : null}
       </main>
 
-      <Footer />
+      {currentView !== 'login' && <Footer />}
     </div>
   );
 };

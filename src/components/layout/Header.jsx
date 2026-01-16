@@ -174,12 +174,20 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
                     <button className="text-left py-3 font-medium text-slate-600 border-b border-slate-50 hover:text-indigo-600">
                       {t('nav.features')}
                     </button>
-                    <button onClick={onLogin} className="text-left py-3 font-bold text-indigo-600 border-b border-slate-50">
-                      {t('nav.login')}
-                    </button>
-                    <button onClick={onRegister} className="mt-4 w-full bg-slate-900 text-white py-3 rounded-xl font-bold">
-                      {t('nav.register')}
-                    </button>
+                    <div className="flex flex-col gap-3 mt-2">
+                      <button
+                        onClick={onLogin}
+                        className="w-full py-3 rounded-xl font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition-colors"
+                      >
+                        {t('nav.login')}
+                      </button>
+                      <button
+                        onClick={onRegister}
+                        className="w-full py-3 rounded-xl font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors shadow-md"
+                      >
+                        {t('nav.register')}
+                      </button>
+                    </div>
                   </>
                 ) : (
                   <button onClick={onLogout} className="text-left py-3 font-medium text-red-500 border-b border-slate-50">
