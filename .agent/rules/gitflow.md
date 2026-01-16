@@ -1,26 +1,53 @@
 ---
-trigger: always_on
+name: gitflow-workflow
+description: 定義專案的 Gitflow 開發流程，包含分支命名與合併規範。
 ---
 
----
-## 6. Git Workflow & Version Control
-**Protocol:** By default, adopt a simplified Gitflow for all code changes.
+# Gitflow Workflow Rules
 
-### A. Automatic Branching (Default Behavior)
-When I ask for a **New Feature**, **Major Refactor**, or **Bug Fix**, you MUST:
-1.  **Check current status:** Run `git status` to ensure the tree is clean (warn me if not).
-2.  **Create Branch:** Automatically run `git checkout -b [type]/[context-slug]`.
-    -   New Feature: `feature/user-auth`
-    -   Bug Fix: `fix/login-error`
-    -   Refactor: `refactor/nav-bar`
-3.  **Confirm:** Tell me "Switched to branch [name]" before writing code.
+本專案採用標準 Gitflow 工作流，請嚴格遵守以下規範：
 
-### B. Override Mode (Stay on Branch)
-**EXCEPTION:** If I include the keyword **"[Stay]"** or **"Current Branch"** in my prompt:
--   **DO NOT** create a new branch.
--   Continue working directly on the currently active branch.
--   This is for quick fixes, typos, or continuing work on an active feature.
+## 1. Branching Model
 
-### C. Commit Message Convention
--   Format: `[Type]: Short description (under 50 chars)`
--   Types: `Feat`, `Fix`, `Docs`, `Style`, `Refactor`, `Test`.
+### Main Branches
+
+- **`main`**:
+  - 永遠保持在與生產環境一致的穩定狀態。
+  - 僅接受來自 `develop` 的合併 (Release) 或 `hotfix`。
+- **`develop`**:
+  - 主要開發分支，包含最新的功能功能。
+  - 所有 Feature 分支完成後皆合併回此分支。
+
+### Supporting Branches
+
+- **`feature/*`**:
+  - 用於開發新功能。
+  - 命名：`feature/login-system`, `feature/user-profile`。
+  - 來源：`develop`。
+  - 合併回：`develop`。
+  - **完成後必須刪除** (本地與遠端)。
+
+- **`fix/*`** / **`bugfix/*`**:
+  - 用於修復一般錯誤。
+  - 命名：`fix/nav-alignment`, `bugfix/api-timeout`。
+  - 來源：`develop`。
+  - 合併回：`develop`。
+
+- **`hotfix/*`**:
+  - 用於修復生產環境的緊急錯誤。
+  - 來源：`main`。
+  - 合併回：`main` AND `develop`。
+
+## 2. Commit Convention
+
+- Format: `[Type]: Short description (50 chars)`
+- Types: `Feat`, `Fix`, `Docs`, `Style`, `Refactor`, `Test`, `Chore`.
+
+## 3. Workflow Steps (Feature)
+
+1.  **Start**: `git checkout development` -> `git checkout -b feature/new-feature`
+2.  **Work**: Commit changes.
+3.  **Finish**:
+    - Merge into `develop`.
+    - Push `develop`.
+    - Delete `feature/new-feature` (local & remote).

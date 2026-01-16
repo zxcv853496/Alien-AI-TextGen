@@ -21,8 +21,8 @@ const App = () => {
   };
 
   const handleStart = () => {
-    window.alert("開始試用 (Mock)");
-  }
+    window.alert('開始試用 (Mock)');
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 flex flex-col">
@@ -37,9 +37,7 @@ const App = () => {
 
       {/* --- Main Content Render --- */}
       <main className="flex-grow">
-        {currentView === 'landing' && (
-          <LandingPage onStart={handleStart} />
-        )}
+        {currentView === 'landing' && <LandingPage onStart={handleStart} />}
       </main>
 
       <Footer />

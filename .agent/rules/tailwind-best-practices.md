@@ -3,6 +3,7 @@ trigger: always_on
 ---
 
 ## UI & Styling (Tailwind CSS)
+
 - **Styling Engine:** Tailwind CSS (Utility-first).
 - **Core Principles:**
   - **Mobile-First:** Write styles for mobile by default (no prefix). Use `md:`, `lg:` only for larger screens overrides.
