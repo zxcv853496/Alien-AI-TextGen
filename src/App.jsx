@@ -37,7 +37,7 @@ const App = () => {
 
       {/* --- Main Content Render --- */}
       <main className="flex-grow">
-        {currentView === 'landing' && <LandingPage onStart={handleStart} />}
+        {currentView === 'landing' ? <LandingPage onStart={handleStart} /> : null}
       </main>
 
       <Footer />

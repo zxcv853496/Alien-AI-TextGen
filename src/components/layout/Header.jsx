@@ -31,7 +31,7 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
         {/* Language Switcher Dropdown */}
         <div className="relative">
           <button
-            onClick={() => setShowLangMenu(!showLangMenu)}
+            onClick={() => setShowLangMenu((prev) => !prev)}
             onBlur={() => setTimeout(() => setShowLangMenu(false), 200)}
             className="p-2 rounded-full hover:bg-slate-100 text-slate-600 transition-colors focus:ring-2 focus:ring-indigo-100 focus:outline-none"
             title={t('nav.language')}
@@ -92,7 +92,11 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
                 className="w-9 h-9 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:border-indigo-300 transition-all"
                 title={t('nav.logout')}
               >
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" />
+                <img
+                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
+                  alt="User"
+                  loading="lazy"
+                />
               </button>
             </div>
           </>
