@@ -7,6 +7,7 @@ const resources = {
     translation: {
       nav: {
         features: '功能特色',
+        pricing: '價格方案',
         login: '登入',
         register: '免費註冊',
         dashboard: '儀表板',

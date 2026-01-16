@@ -61,7 +61,6 @@ const LoginPage = ({ onLoginSuccess, onRegisterClick }) => {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  required
                   className="appearance-none relative block w-full px-4 py-3 border border-slate-300 placeholder-slate-400 text-slate-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-shadow"
                   placeholder="Enter your email"
                 />
@@ -76,7 +75,6 @@ const LoginPage = ({ onLoginSuccess, onRegisterClick }) => {
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  required
                   className="appearance-none relative block w-full px-4 py-3 border border-slate-300 placeholder-slate-400 text-slate-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-shadow"
                   placeholder="••••••••"
                 />
