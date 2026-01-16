@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { useNavigate, Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
-import { Globe, Menu, X } from 'lucide-react';
+import { Globe, Menu, X, LayoutDashboard } from 'lucide-react';
 
 const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
   const { t, i18n } = useTranslation();
@@ -96,11 +96,18 @@ const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
 
           {!isLoggedIn ? (
             <>
+              {/* Visitor Nav */}
               <button
                 onClick={() => handleNavClick('/')}
                 className="text-sm font-medium text-slate-600 hover:text-slate-900"
               >
                 {t('nav.features')}
+              </button>
+              <button
+                onClick={() => handleNavClick('/')}
+                className="text-sm font-medium text-slate-600 hover:text-slate-900"
+              >
+                {t('nav.pricing')}
               </button>
               <button
                 onClick={onLogin}
@@ -117,9 +124,23 @@ const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
             </>
           ) : (
             <>
+              {/* Logged In Nav */}
+              <button
+                onClick={() => handleNavClick('/dashboard')}
+                className="hidden md:flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
+              >
+                <LayoutDashboard className="w-4 h-4" /> {t('nav.dashboard')}
+              </button>
+
+              <div className="hidden md:flex flex-col items-end mr-2">
+                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                  {t('nav.credits')}
+                </span>
+                <span className="text-sm font-bold text-indigo-600">1,250</span>
+              </div>
+
               <div className="relative group">
                 <button
-                  onClick={onLogout}
                   className="w-9 h-9 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:border-indigo-300 transition-all"
                   title={t('nav.logout')}
                 >
@@ -129,6 +150,19 @@ const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
                     loading="lazy"
                   />
                 </button>
+                {/* Dropdown Menu */}
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-100 p-2 hidden group-hover:block animate-in fade-in zoom-in-95 origin-top-right z-50">
+                  <div className="px-3 py-2 border-b border-slate-50 mb-1">
+                    <p className="text-sm font-bold text-slate-800">Felix Chen</p>
+                    <p className="text-xs text-slate-500">Pro Plan</p>
+                  </div>
+                  <button
+                    onClick={onLogout}
+                    className="w-full text-left px-3 py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    {t('nav.logout')}
+                  </button>
+                </div>
               </div>
             </>
           )}

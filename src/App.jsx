@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import LandingPage from '@/pages/LandingPage';
 import LoginPage from '@/pages/LoginPage';
+import DashboardPage from '@/pages/DashboardPage';
+import EditorPage from '@/pages/EditorPage';
 import './App.css';
 
 // --- 主應用入口 (Main App) ---
@@ -18,7 +20,7 @@ const App = () => {
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
-    navigate('/');
+    navigate('/dashboard');
   };
 
   const handleLogout = () => {
@@ -27,13 +29,16 @@ const App = () => {
   };
 
   const handleStart = () => {
-    window.alert('開始試用 (Mock)');
+    // If logged in, go to editor, else trigger login/register mock flow
+    if (isLoggedIn) {
+      navigate('/editor');
+    } else {
+      window.alert('開始試用 (Mock)');
+    }
   };
 
   // Determine if we should show header/footer
-  // For now, user wants header everywhere. If later we want to hide it on login, we can check location.pathname
-  // const showLayout = location.pathname !== '/login'; 
-  const showLayout = true; // Based on latest user request "Add header back to login page"
+  const showLayout = true;
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 flex flex-col">
@@ -51,6 +56,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LandingPage onStart={handleStart} />} />
           <Route path="/login" element={<LoginPage onLoginSuccess={handleLoginSuccess} onRegisterClick={handleStart} />} />
+          <Route path="/dashboard" element={isLoggedIn ? <DashboardPage /> : <Navigate to="/login" />} />
+          <Route path="/editor" element={isLoggedIn ? <EditorPage /> : <Navigate to="/login" />} />
         </Routes>
       </main>
 
