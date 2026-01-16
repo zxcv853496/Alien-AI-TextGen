@@ -67,7 +67,7 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
                   onClick={() => { changeLanguage('zh'); setShowLangMenu(false); }}
                   className={cn(
                     "w-full text-left px-4 py-2 text-sm font-medium transition-colors hover:bg-slate-50",
-                    i18n.language === 'zh' ? "text-indigo-600 bg-indigo-50/50" : "text-slate-700"
+                    i18n.language?.startsWith('zh') ? "text-indigo-600 bg-indigo-50/50" : "text-slate-700"
                   )}
                 >
                   繁體中文
@@ -76,7 +76,7 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
                   onClick={() => { changeLanguage('en'); setShowLangMenu(false); }}
                   className={cn(
                     "w-full text-left px-4 py-2 text-sm font-medium transition-colors hover:bg-slate-50",
-                    i18n.language === 'en' ? "text-indigo-600 bg-indigo-50/50" : "text-slate-700"
+                    i18n.language?.startsWith('en') ? "text-indigo-600 bg-indigo-50/50" : "text-slate-700"
                   )}
                 >
                   English
@@ -155,13 +155,13 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
                 <div className="flex gap-2 bg-slate-50 p-1 rounded-lg">
                   <button
                     onClick={() => changeLanguage('zh')}
-                    className={cn("flex-1 py-2 text-sm font-medium rounded-md", i18n.language === 'zh' ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500")}
+                    className={cn("flex-1 py-2 text-sm font-medium rounded-md", i18n.language?.startsWith('zh') ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500")}
                   >
                     繁體
                   </button>
                   <button
                     onClick={() => changeLanguage('en')}
-                    className={cn("flex-1 py-2 text-sm font-medium rounded-md", i18n.language === 'en' ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500")}
+                    className={cn("flex-1 py-2 text-sm font-medium rounded-md", i18n.language?.startsWith('en') ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500")}
                   >
                     English
                   </button>
