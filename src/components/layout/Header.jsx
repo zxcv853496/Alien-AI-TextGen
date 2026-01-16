@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
 
 import { Globe, Menu, X } from 'lucide-react';
@@ -116,7 +117,7 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
         </div>
 
         {/* Mobile Sidebar (Sheet) */}
-        {showMobileMenu && (
+        {showMobileMenu && createPortal(
           <>
             {/* Overlay */}
             <div
@@ -126,8 +127,7 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
 
             {/* Sidebar Drawer */}
             <div
-              className="fixed top-0 right-0 h-full w-3/4 max-w-sm shadow-2xl z-[70] md:hidden p-6 flex flex-col gap-6 animate-in slide-in-from-right duration-300 border-l border-slate-100"
-              style={{ backgroundColor: '#ffffff', isolation: 'isolate' }}
+              className="fixed top-0 right-0 h-full w-3/4 max-w-sm bg-white shadow-2xl z-[70] md:hidden p-6 flex flex-col gap-6 animate-in slide-in-from-right duration-300 border-l border-slate-100"
             >
               <div className="flex justify-between items-center">
                 <span className="font-bold text-lg text-slate-800">Menu</span>
@@ -174,7 +174,8 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
                 )}
               </div>
             </div>
-          </>
+          </>,
+          document.body
         )}
       </div>
     </header>
