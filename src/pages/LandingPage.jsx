@@ -30,13 +30,6 @@ const LandingPage = ({ onStart }) => {
             >
               {t('hero.btn_start')}
             </button>
-            <button
-              onClick={() => window.alert('Demo Video 彈窗')}
-              className="px-8 py-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all"
-            >
-              <Play className="w-5 h-5 fill-slate-700" />
-              {t('hero.btn_demo')}
-            </button>
           </div>
         </div>
 

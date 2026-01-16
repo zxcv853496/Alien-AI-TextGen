@@ -37,20 +37,18 @@ const App = () => {
     }
   };
 
-  // Determine if we should show header/footer
-  const hideLayoutPaths = ['/login', '/dashboard', '/editor'];
-  const showLayout = !hideLayoutPaths.includes(location.pathname);
+  // Determine if we should show footer
+  const hideFooterPaths = ['/login', '/dashboard', '/editor'];
+  const showFooter = !hideFooterPaths.includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 flex flex-col">
-      {showLayout && (
-        <Header
-          isLoggedIn={isLoggedIn}
-          onLogin={handleLoginStart}
-          onRegister={handleStart}
-          onLogout={handleLogout}
-        />
-      )}
+      <Header
+        isLoggedIn={isLoggedIn}
+        onLogin={handleLoginStart}
+        onRegister={handleStart}
+        onLogout={handleLogout}
+      />
 
       {/* --- Main Content Render --- */}
       <main className="flex-grow">
@@ -62,7 +60,7 @@ const App = () => {
         </Routes>
       </main>
 
-      {showLayout && <Footer />}
+      {showFooter && <Footer />}
     </div>
   );
 };

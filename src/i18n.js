@@ -116,7 +116,13 @@ const resources = {
           ]
         }
       },
+      languages: {
+        zh: "繁体中文",
+        en: "English",
+        cn: "简体中文",
+      }
     },
+
   },
   cn: {
     translation: {
@@ -231,6 +237,11 @@ const resources = {
           ]
         }
       },
+      languages: {
+        zh: "繁体中文",
+        en: "English",
+        cn: "简体中文",
+      }
     },
   },
   en: {
@@ -346,6 +357,11 @@ const resources = {
           ]
         }
       },
+      languages: {
+        zh: "Traditional Chinese",
+        en: "English",
+        cn: "Simplified Chinese",
+      }
     },
   },
 };
