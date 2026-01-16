@@ -9,9 +9,18 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
   const { t, i18n } = useTranslation();
   const [showLangMenu, setShowLangMenu] = React.useState(false);
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
+  const [isClosing, setIsClosing] = React.useState(false);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+  };
+
+  const handleCloseMobileMenu = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setShowMobileMenu(false);
+      setIsClosing(false);
+    }, 300); // Match animation duration
   };
 
   return (
@@ -28,7 +37,6 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
         </span>
       </div>
 
-      {/* Right Navigation */}
       {/* Right Navigation */}
       <div className="flex items-center gap-4 md:gap-6">
 
@@ -121,17 +129,23 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
           <>
             {/* Overlay */}
             <div
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] md:hidden animate-in fade-in duration-200"
-              onClick={() => setShowMobileMenu(false)}
+              className={cn(
+                "fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] md:hidden duration-300",
+                isClosing ? "animate-out fade-out fill-mode-forwards" : "animate-in fade-in"
+              )}
+              onClick={handleCloseMobileMenu}
             ></div>
 
             {/* Sidebar Drawer */}
             <div
-              className="fixed top-0 right-0 h-full w-3/4 max-w-sm bg-white shadow-2xl z-[70] md:hidden p-6 flex flex-col gap-6 animate-in slide-in-from-right duration-300 border-l border-slate-100"
+              className={cn(
+                "fixed top-0 right-0 h-full w-3/4 max-w-sm bg-white shadow-2xl z-[70] md:hidden p-6 flex flex-col gap-6 duration-300 border-l border-slate-100",
+                isClosing ? "animate-out slide-out-to-right fill-mode-forwards" : "animate-in slide-in-from-right"
+              )}
             >
               <div className="flex justify-between items-center">
                 <span className="font-bold text-lg text-slate-800">Menu</span>
-                <button onClick={() => setShowMobileMenu(false)} className="p-2 hover:bg-slate-100 rounded-full text-slate-500">
+                <button onClick={handleCloseMobileMenu} className="p-2 hover:bg-slate-100 rounded-full text-slate-500">
                   <X className="w-6 h-6" />
                 </button>
               </div>
