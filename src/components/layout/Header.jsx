@@ -9,10 +9,6 @@ import { Globe, Menu, X, LayoutDashboard } from 'lucide-react';
 const LANGUAGES = [
   { code: 'zh', label: '繁體中文' },
   { code: 'en', label: 'English' },
-  { code: 'ja', label: '日本語' },
-  { code: 'ko', label: '한국어' },
-  { code: 'es', label: 'Español' },
-  { code: 'fr', label: 'Français' },
 ];
 
 const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
@@ -154,17 +150,19 @@ const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
                   />
                 </button>
                 {/* Dropdown Menu */}
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-100 p-2 hidden group-hover:block animate-in fade-in zoom-in-95 origin-top-right z-50">
-                  <div className="px-3 py-2 border-b border-slate-50 mb-1">
-                    <p className="text-sm font-bold text-slate-800">Felix Chen</p>
-                    <p className="text-xs text-slate-500">Pro Plan</p>
+                <div className="absolute right-0 top-full pt-2 w-48 hidden group-hover:block z-50">
+                  <div className="bg-white rounded-xl shadow-xl border border-slate-100 p-2 animate-in fade-in zoom-in-95 origin-top-right">
+                    <div className="px-3 py-2 border-b border-slate-50 mb-1">
+                      <p className="text-sm font-bold text-slate-800">Felix Chen</p>
+                      <p className="text-xs text-slate-500">Pro Plan</p>
+                    </div>
+                    <button
+                      onClick={onLogout}
+                      className="w-full text-left px-3 py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                    >
+                      {t('nav.logout')}
+                    </button>
                   </div>
-                  <button
-                    onClick={onLogout}
-                    className="w-full text-left px-3 py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                  >
-                    {t('nav.logout')}
-                  </button>
                 </div>
               </div>
             </>

@@ -131,7 +131,7 @@ const EditorPage = () => {
                 </h2>
                 <p className="text-slate-500 mb-6">{t('editor.upload.drag_desc')}</p>
                 <span className="text-xs text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
-                  Max 500MB
+                  {t('editor.upload.max_size')}
                 </span>
               </>
             )}
@@ -150,9 +150,8 @@ const EditorPage = () => {
                     {t('editor.upload.source_lang')}
                   </label>
                   <select className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
-                    <option>繁體中文 (台灣)</option>
-                    <option>English (US)</option>
-                    <option>日本語</option>
+                    <option>{t('languages.zh')}</option>
+                    <option>{t('languages.en')}</option>
                   </select>
                 </div>
 
@@ -167,12 +166,9 @@ const EditorPage = () => {
                     onChange={(e) => setTargetLang(e.target.value)}
                   >
                     <option value="">{t('editor.upload.target_placeholder')}</option>
-                    <option value="en">English (US)</option>
-                    <option value="zh">繁體中文 (台灣)</option>
-                    <option value="jp">日本語</option>
-                    <option value="ko">한국어</option>
-                    <option value="es">Español</option>
-                    <option value="fr">Français</option>
+                    <option value="en">{t('languages.en')}</option>
+                    <option value="zh">{t('languages.zh')}</option>
+                    <option value="cn">{t('languages.cn')}</option>
                   </select>
                 </div>
 
@@ -276,13 +272,13 @@ const EditorPage = () => {
                   <div className="bg-black/60 px-4 py-2 rounded-lg inline-block backdrop-blur-sm">
                     {targetLang ? (
                       <>
-                        <p className="text-white text-xl font-bold">這就是多語系字幕的力量！</p>
+                        <p className="text-white text-xl font-bold">{t('editor.demo_text.title')}</p>
                         <p className="text-yellow-300 text-lg mt-1 font-medium">
-                          This is the power of multi-language subtitles!
+                          {t('editor.demo_text.subtitle')}
                         </p>
                       </>
                     ) : (
-                      <p className="text-white text-xl font-bold">這就是 AI 精準字幕的力量！</p>
+                      <p className="text-white text-xl font-bold">{t('editor.demo_text.title_single')}</p>
                     )}
                   </div>
                 </div>
@@ -306,23 +302,23 @@ const EditorPage = () => {
                 {[
                   {
                     time: '00:15',
-                    src: '各位觀眾大家好，歡迎來到今天的影片。',
-                    trans: "Hello everyone, welcome to today's video.",
+                    src: t('editor.demo_text.items.0.src', '各位觀眾大家好，歡迎來到今天的影片。'),
+                    trans: t('editor.demo_text.items.0.trans', "Hello everyone, welcome to today's video."),
                   },
                   {
                     time: '00:23',
-                    src: '今天我們要來介紹如何使用 Alien AI。',
-                    trans: 'Today we are going to introduce how to use Alien AI.',
+                    src: t('editor.demo_text.items.1.src', '今天我們要來介紹如何使用 Alien AI。'),
+                    trans: t('editor.demo_text.items.1.trans', 'Today we are going to introduce how to use Alien AI.'),
                   },
                   {
                     time: '00:42',
-                    src: '它不僅能生成字幕，還能自動翻譯。',
-                    trans: 'It can not only generate subtitles but also translate automatically.',
+                    src: t('editor.demo_text.items.2.src', '它不僅能生成字幕，還能自動翻譯。'),
+                    trans: t('editor.demo_text.items.2.trans', 'It can not only generate subtitles but also translate automatically.'),
                   },
                   {
                     time: '01:05',
-                    src: '這將幫助你觸及全球的觀眾。',
-                    trans: 'This will help you reach a global audience.',
+                    src: t('editor.demo_text.items.3.src', '這將幫助你觸及全球的觀眾。'),
+                    trans: t('editor.demo_text.items.3.trans', 'This will help you reach a global audience.'),
                   },
                 ].map((item, i) => (
                   <div

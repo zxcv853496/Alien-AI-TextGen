@@ -38,7 +38,8 @@ const App = () => {
   };
 
   // Determine if we should show header/footer
-  const showLayout = true;
+  const hideLayoutPaths = ['/login', '/dashboard', '/editor'];
+  const showLayout = !hideLayoutPaths.includes(location.pathname);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 flex flex-col">
