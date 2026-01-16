@@ -6,6 +6,15 @@ import { cn } from '@/lib/utils';
 
 import { Globe, Menu, X, LayoutDashboard } from 'lucide-react';
 
+const LANGUAGES = [
+  { code: 'zh', label: '繁體中文' },
+  { code: 'en', label: 'English' },
+  { code: 'ja', label: '日本語' },
+  { code: 'ko', label: '한국어' },
+  { code: 'es', label: 'Español' },
+  { code: 'fr', label: 'Français' },
+];
+
 const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -69,25 +78,19 @@ const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
             </button>
 
             {showLangMenu && (
-              <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-xl shadow-slate-200 border border-slate-100 py-1 animate-in fade-in zoom-in-95 duration-200 z-50">
-                <button
-                  onClick={() => { changeLanguage('zh'); setShowLangMenu(false); }}
-                  className={cn(
-                    "w-full text-left px-4 py-2 text-sm font-medium transition-colors hover:bg-slate-50",
-                    i18n.language?.startsWith('zh') ? "text-indigo-600 bg-indigo-50/50" : "text-slate-700"
-                  )}
-                >
-                  繁體中文
-                </button>
-                <button
-                  onClick={() => { changeLanguage('en'); setShowLangMenu(false); }}
-                  className={cn(
-                    "w-full text-left px-4 py-2 text-sm font-medium transition-colors hover:bg-slate-50",
-                    i18n.language?.startsWith('en') ? "text-indigo-600 bg-indigo-50/50" : "text-slate-700"
-                  )}
-                >
-                  English
-                </button>
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl shadow-slate-200 border border-slate-100 py-1 animate-in fade-in zoom-in-95 duration-200 z-50 overflow-hidden">
+                {LANGUAGES.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => { changeLanguage(lang.code); setShowLangMenu(false); }}
+                    className={cn(
+                      "w-full text-left px-4 py-2 text-sm font-medium transition-colors hover:bg-slate-50",
+                      i18n.language?.startsWith(lang.code) ? "text-indigo-600 bg-indigo-50/50" : "text-slate-700"
+                    )}
+                  >
+                    {lang.label}
+                  </button>
+                ))}
               </div>
             )}
           </div>
@@ -196,19 +199,21 @@ const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
 
               <div className="flex flex-col gap-4">
                 {/* Mobile Language Switcher */}
-                <div className="flex gap-2 bg-slate-50 p-1 rounded-lg">
-                  <button
-                    onClick={() => changeLanguage('zh')}
-                    className={cn("flex-1 py-2 text-sm font-medium rounded-md", i18n.language?.startsWith('zh') ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500")}
-                  >
-                    繁體
-                  </button>
-                  <button
-                    onClick={() => changeLanguage('en')}
-                    className={cn("flex-1 py-2 text-sm font-medium rounded-md", i18n.language?.startsWith('en') ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500")}
-                  >
-                    English
-                  </button>
+                <div className="grid grid-cols-2 gap-2 bg-slate-50 p-2 rounded-lg">
+                  {LANGUAGES.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      className={cn(
+                        "py-2 text-sm font-medium rounded-md transition-all",
+                        i18n.language?.startsWith(lang.code)
+                          ? "bg-white text-indigo-600 shadow-sm"
+                          : "text-slate-500 hover:text-slate-700"
+                      )}
+                    >
+                      {lang.label}
+                    </button>
+                  ))}
                 </div>
 
                 <div className="h-[1px] bg-slate-100 my-2"></div>
@@ -221,25 +226,39 @@ const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
                     >
                       {t('nav.features')}
                     </button>
+                    <button
+                      onClick={() => handleNavClick('/')}
+                      className="text-left py-3 font-medium text-slate-600 border-b border-slate-50 hover:text-indigo-600"
+                    >
+                      {t('nav.pricing')}
+                    </button>
                     <div className="flex flex-col gap-3 mt-2">
                       <button
                         onClick={onLogin}
-                        className="w-full py-3 rounded-xl font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 transition-colors"
+                        className="text-left py-3 font-bold text-indigo-600 border-b border-slate-50"
                       >
                         {t('nav.login')}
                       </button>
                       <button
                         onClick={onRegister}
-                        className="w-full py-3 rounded-xl font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors shadow-md"
+                        className="mt-4 w-full bg-slate-900 text-white py-3 rounded-xl font-bold"
                       >
                         {t('nav.register')}
                       </button>
                     </div>
                   </>
                 ) : (
-                  <button onClick={onLogout} className="text-left py-3 font-medium text-red-500 border-b border-slate-50">
-                    {t('nav.logout')}
-                  </button>
+                  <>
+                    <button
+                      onClick={() => handleNavClick('/dashboard')}
+                      className="text-left py-3 font-medium text-slate-600 border-b border-slate-50 hover:text-indigo-600 flex items-center gap-2"
+                    >
+                      <LayoutDashboard className="w-4 h-4" /> {t('nav.dashboard')}
+                    </button>
+                    <button onClick={onLogout} className="text-left py-3 font-medium text-red-500 border-b border-slate-50">
+                      {t('nav.logout')}
+                    </button>
+                  </>
                 )}
               </div>
             </div>
