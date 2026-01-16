@@ -1,36 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Button from '@mui/material/Button'
+import React, { useState } from 'react';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import LandingPage from '@/pages/LandingPage';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+// --- 主應用入口 (Main App) ---
+const App = () => {
+  // View State: landing
+  const [currentView, setCurrentView] = useState('landing');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    // Future: redirect to dashboard
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setCurrentView('landing');
+  };
+
+  const handleStart = () => {
+    window.alert("開始試用 (Mock)");
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Button variant="contained" onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </Button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 flex flex-col">
+      <Header
+        isLoggedIn={isLoggedIn}
+        onLogin={handleLogin}
+        onRegister={handleStart}
+        onLogout={handleLogout}
+        currentView={currentView}
+        onChangeView={setCurrentView}
+      />
 
-export default App
+      {/* --- Main Content Render --- */}
+      <main className="flex-grow">
+        {currentView === 'landing' && (
+          <LandingPage onStart={handleStart} />
+        )}
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
