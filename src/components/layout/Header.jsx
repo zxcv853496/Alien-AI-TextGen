@@ -1,12 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { createPortal } from 'react-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
 import { Globe, Menu, X } from 'lucide-react';
 
-const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRegister }) => {
+const Header = ({ isLoggedIn, onLogin, onLogout, onRegister }) => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [showLangMenu, setShowLangMenu] = React.useState(false);
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
@@ -23,11 +25,16 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
     }, 300); // Match animation duration
   };
 
+  const handleNavClick = (path) => {
+    navigate(path);
+    if (showMobileMenu) handleCloseMobileMenu();
+  }
+
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
       <div
         className="flex items-center gap-2 cursor-pointer"
-        onClick={() => onChangeView('landing')}
+        onClick={() => handleNavClick('/')}
       >
         <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold shadow-md shadow-indigo-200">
           A
@@ -89,7 +96,10 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
 
           {!isLoggedIn ? (
             <>
-              <button className="text-sm font-medium text-slate-600 hover:text-slate-900">
+              <button
+                onClick={() => handleNavClick('/')}
+                className="text-sm font-medium text-slate-600 hover:text-slate-900"
+              >
                 {t('nav.features')}
               </button>
               <button
@@ -171,7 +181,10 @@ const Header = ({ isLoggedIn, onLogin, onLogout, currentView, onChangeView, onRe
 
                 {!isLoggedIn ? (
                   <>
-                    <button className="text-left py-3 font-medium text-slate-600 border-b border-slate-50 hover:text-indigo-600">
+                    <button
+                      onClick={() => handleNavClick('/')}
+                      className="text-left py-3 font-medium text-slate-600 border-b border-slate-50 hover:text-indigo-600"
+                    >
                       {t('nav.features')}
                     </button>
                     <div className="flex flex-col gap-3 mt-2">
